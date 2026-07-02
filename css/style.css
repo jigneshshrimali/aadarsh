@@ -33,7 +33,7 @@
   --glow-purple: rgba(167,139,250,0.30);
 
   /* Typography */
-  --font-display: "Clash Display", "General Sans", sans-serif;
+  --font-display: "Montserrat", "Clash Display", "General Sans", sans-serif;
   --font-body: "General Sans", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -178,8 +178,8 @@ body::before{
 .nav__logo{ display:flex; align-items:center; gap:10px; flex-shrink:0; }
 .nav__mark{ width:34px; height:34px; }
 .nav__word{ display:flex; flex-direction:column; line-height:1.05; }
-.nav__word-top{ font-family:var(--font-display); font-weight:600; font-size:1rem; letter-spacing:0.01em; }
-.nav__word-bottom{ font-size:0.65rem; color:var(--text-3); letter-spacing:0.03em; }
+.nav__word-top{ font-family:var(--font-display); font-weight:600; font-size:1.2rem; letter-spacing:0.1em; }
+.nav__word-bottom{ font-size:0.80rem; padding-top: 0.1em; color:var(--text-1); letter-spacing:0.1em; }
 
 .nav__menu ul{ display:flex; align-items:center; gap:2px; }
 .nav__menu a{
