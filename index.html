@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aadarsh Technologies — Engineering Intelligent Futures</title>
+<meta name="description" content="Aadarsh Technologies delivers next-generation digital solutions that empower businesses, protect their assets, and accelerate their growth.">
+
+<!-- Fonts: Clash Display (headline personality) + General Sans (body/UI) + JetBrains Mono (data/labels) -->
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dark">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============================= -->
+<!-- FLOATING GLASS NAVIGATION     -->
+<!-- ============================= -->
+<header class="nav" id="siteNav" data-nav>
+  <div class="nav__inner">
+
+    <a href="#" class="nav__logo" aria-label="Aadarsh Technologies — home">
+      <span class="nav__mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 6 L42 42 H33.5 L24 22 L14.5 42 H6 Z" stroke="url(#markGrad)" stroke-width="3" stroke-linejoin="round" fill="none"/>
+          <path d="M19 30 H29" stroke="url(#markGrad)" stroke-width="3" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="markGrad" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#5CC8FF"/>
+              <stop offset="1" stop-color="#8B6CFF"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </span>
+      <span class="nav__word">
+        <span class="nav__word-top">Aadarsh</span>
+        <span class="nav__word-bottom">Technologies</span>
+      </span>
+    </a>
+
+    <nav class="nav__menu" aria-label="Primary">
+      <ul>
+        <li><a href="#home" class="is-active">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#solutions">Solutions</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#insights">Insights</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <a href="#contact" class="btn btn--nav">
+      <span>Let's Build</span>
+    </a>
+
+    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg class="nav__toggle-icon nav__toggle-icon--menu" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 12h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 19h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="nav__toggle-icon nav__toggle-icon--close" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m6 6 12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#industries">Industries</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#insights">Insights</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn btn--primary btn--block">Let's Build</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================= -->
+  <!-- SECTION 01 — CINEMATIC HERO   -->
+  <!-- ============================= -->
+  <section class="hero" id="home" aria-label="Introduction">
+
+    <!-- Atmosphere layers: mesh gradient + fog, purely decorative -->
+    <div class="hero__atmosphere" aria-hidden="true">
+      <div class="hero__wash"></div>
+      <div class="mesh mesh--one"></div>
+      <div class="mesh mesh--two"></div>
+      <div class="hero__grid-lines"></div>
+      <div class="hero__vignette"></div>
+    </div>
+
+    <div class="hero__inner">
+
+      <div class="hero__content">
+
+        <p class="eyebrow" data-reveal="badge">
+          <span class="eyebrow__dot" aria-hidden="true"></span>
+          Engineering the Future. Securing the World.
+        </p>
+
+        <h1 class="hero__headline" data-reveal="headline">
+          <span class="line">Intelligent Technology.</span>
+          <span class="line">Secure <em class="grad grad--blue">Tomorrow.</em></span>
+          <span class="line grad grad--purple">Limitless Possibilities.</span>
+        </h1>
+
+        <p class="hero__sub" data-reveal="sub">
+          Aadarsh Technologies delivers next-generation digital solutions that
+          empower businesses, protect their assets, and accelerate their growth.
+        </p>
+
+        <div class="hero__cta" data-reveal="cta">
+          <a href="#solutions" class="btn btn--primary btn--magnetic">
+            <span>Explore Solutions</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#contact" class="btn btn--ghost btn--magnetic">
+            <span>Talk to Experts</span>
+            <kbd>⌘K</kbd>
+          </a>
+        </div>
+
+        <div class="hero__trust" data-reveal="trust">
+          <span class="hero__trust-label">Trusted by global businesses</span>
+          <ul class="hero__trust-logos">
+            <li><i class="tmark tmark--dot" aria-hidden="true"></i>AcmeCorp</li>
+            <li><i class="tmark tmark--wave" aria-hidden="true"></i>Pulse</li>
+            <li><i class="tmark tmark--tri" aria-hidden="true"></i>Horizon</li>
+            <li>Momentum</li>
+            <li>Vertex</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="hero__visual" data-reveal="visual">
+        <div class="sphere-stage" id="sphereStage" role="img" aria-label="Animated network sphere representing intelligent, connected technology">
+          <canvas id="sphereCanvas"></canvas>
+          <div class="sphere-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 6 L42 42 H33.5 L24 22 L14.5 42 H6 Z" stroke="url(#heroMarkGrad)" stroke-width="2.6" stroke-linejoin="round" fill="none"/>
+              <path d="M19 30 H29" stroke="url(#heroMarkGrad)" stroke-width="2.6" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="heroMarkGrad" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#8FE0FF"/>
+                  <stop offset="1" stop-color="#A78BFA"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <div class="stat-card" data-reveal="stat">
+          <div class="stat-card__head">
+            <span>System Uptime</span>
+          </div>
+          <div class="stat-card__value">
+            <span id="statValue">0</span>%
+          </div>
+          <p class="stat-card__label">Enterprise Grade Reliability</p>
+          <svg class="stat-card__spark" viewBox="0 0 160 40" preserveAspectRatio="none" aria-hidden="true">
+            <path id="sparkPath" d="M0,30 L20,26 L40,28 L60,18 L80,22 L100,10 L120,14 L140,6 L160,9"
+                  fill="none" stroke="url(#sparkGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="sparkGrad" x1="0" y1="0" x2="160" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#5CC8FF" stop-opacity="0.3"/>
+                <stop offset="1" stop-color="#8FE0FF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hero__scroll-cue" aria-hidden="true">
+      <span></span>
+      <p>Scroll</p>
+    </div>
+  </section>
+
+  <!-- ============================= -->
+  <!-- SECTION 02 — SERVICES         -->
+  <!-- ============================= -->
+  <section class="services" id="services" aria-labelledby="servicesTitle">
+
+    <div class="services__atmosphere" aria-hidden="true">
+      <div class="mesh mesh--three"></div>
+    </div>
+
+    <div class="services__inner">
+
+      <header class="services__head">
+        <p class="eyebrow eyebrow--static">
+          <span class="eyebrow__dot" aria-hidden="true"></span>
+          What We Do
+        </p>
+        <h2 id="servicesTitle" class="services__title" data-sr="up">Future-Ready Digital Solutions</h2>
+        <p class="services__sub" data-sr="up">
+          Engineering digital products, platforms and experiences that drive real business impact.
+        </p>
+      </header>
+
+      <div class="services__grid">
+
+        <!-- Shared icon gradient, referenced by every module icon -->
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+          <defs>
+            <linearGradient id="svcIconGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#8FE0FF"/>
+              <stop offset="1" stop-color="#A78BFA"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <article class="module" data-sr="module" data-outcome="40% faster load times, on average">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="m18 16 4-4-4-4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m6 8-4 4 4 4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m14.5 4-5 16" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Web Development</h3>
+          <p>High-performance websites and web applications built for scale, speed and success.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about Web Development">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="module module--featured" data-sr="module" data-outcome="4.8★ average app store rating">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><rect width="14" height="20" x="5" y="2" rx="2" ry="2" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18h.01" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Mobile Applications</h3>
+          <p>Intuitive, powerful and scalable mobile apps for iOS and Android platforms.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about Mobile Applications">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="module" data-sr="module" data-outcome="30% lower infrastructure cost">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Cloud Infrastructure</h3>
+          <p>Secure, scalable and cost-optimized cloud solutions for modern enterprises.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about Cloud Infrastructure">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="module" data-sr="module" data-outcome="Zero critical breaches across clients">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Cybersecurity</h3>
+          <p>Advanced security solutions to protect your systems, data and digital assets.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about Cybersecurity">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="module" data-sr="module" data-outcome="60% reduction in manual workload">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13a4.5 4.5 0 0 0 3-4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 18a4 4 0 0 1-1.967-.516" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13h4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 18h6a2 2 0 0 1 2 2v1" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 8h8" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 8V5a2 2 0 0 1 2-2" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="13" r=".5" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="3" r=".5" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="21" r=".5" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="8" r=".5" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>AI &amp; Automation</h3>
+          <p>Intelligent automation and AI solutions that drive efficiency and innovation.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about AI and Automation">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <article class="module" data-sr="module" data-outcome="Unified operations across every team">
+          <div class="module__glow" aria-hidden="true"></div>
+          <div class="module__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M10 12h4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 8h4" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 21v-3a2 2 0 0 0-4 0v3" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" stroke="url(#svcIconGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Enterprise Systems</h3>
+          <p>Custom enterprise platforms that streamline operations and accelerate growth.</p>
+          <span class="module__outcome"></span>
+          <a class="module__link" href="#contact" aria-label="Learn more about Enterprise Systems">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="m12 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+      </div>
+
+      <ul class="stat-bar" data-sr="stats">
+        <li><span class="stat-bar__num" data-count="10" data-suffix="+" style="--stat-color:var(--purple)">0</span><span class="stat-bar__label">Years of Excellence</span></li>
+        <li><span class="stat-bar__num" data-count="200" data-suffix="+" style="--stat-color:var(--green)">0</span><span class="stat-bar__label">Global Clients</span></li>
+        <li><span class="stat-bar__num" data-count="350" data-suffix="+" style="--stat-color:var(--blue-soft)">0</span><span class="stat-bar__label">Projects Delivered</span></li>
+        <li><span class="stat-bar__num" data-count="99.99" data-decimals="2" data-suffix="%" style="--stat-color:var(--purple)">0</span><span class="stat-bar__label">System Uptime</span></li>
+        <li><span class="stat-bar__num" data-count="24/7" data-static="true" style="--stat-color:var(--orange)">24/7</span><span class="stat-bar__label">Expert Support</span></li>
+      </ul>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Animation stack: GSAP core + ScrollTrigger + SplitText, Lenis for smooth scroll -->
+<script src="https://unpkg.com/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<!-- Three.js — classic global build (not an ES module) so this page runs by double-clicking the file, no local server required -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
+
