@@ -107,42 +107,31 @@ function runHeroTimeline() {
 
   if (!gsap) {
     document.querySelectorAll("[data-reveal]").forEach((el) => (el.style.opacity = 1));
-    animateStatBarCounters(".stat-bar--hero");
     return;
   }
 
   if (prefersReducedMotion) {
-    gsap.set("[data-reveal]", { opacity: 1, y: 0, x: 0, clearProps: "transform" });
-    animateStatBarCounters(".stat-bar--hero");
+    gsap.set("[data-reveal]", { opacity: 1, y: 0, filter: "blur(0px)", clearProps: "transform,filter" });
     return;
   }
 
-  gsap.set(lines, { yPercent: 130, rotate: 3 });
+  // Lines get a soft blur-to-focus treatment on top of the vertical reveal —
+  // reads as a deliberate "pull into focus" rather than a generic slide-up.
+  gsap.set(lines, { yPercent: 130, rotate: 3, filter: "blur(6px)" });
   gsap.set(
-    [
-      "[data-reveal='badge']",
-      "[data-reveal='headline']",
-      "[data-reveal='sub']",
-      "[data-reveal='cta']",
-      "[data-reveal='visual']",
-      "[data-reveal='stat']",
-    ],
-    { autoAlpha: 0, y: 24 }
+    ["[data-reveal='badge']", "[data-reveal='headline']", "[data-reveal='sub']", "[data-reveal='cta']", "[data-reveal='visual']"],
+    { autoAlpha: 0, y: 22 }
   );
-  gsap.set("[data-reveal='visual']", { y: 0, scale: 0.92 });
+  gsap.set("[data-reveal='visual']", { y: 0, scale: 0.94 });
 
   const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
   tl.to("[data-reveal='badge']", { autoAlpha: 1, y: 0, duration: 0.7 }, 0.15)
-    .to("[data-reveal='headline']", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.3)
-    .to(lines, { yPercent: 0, rotate: 0, duration: 1.05, stagger: 0.11, ease: "expo.out" }, 0.3)
-    .to("[data-reveal='sub']", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.55")
+    .to("[data-reveal='headline']", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.32)
+    .to(lines, { yPercent: 0, rotate: 0, filter: "blur(0px)", duration: 1.15, stagger: 0.12, ease: "expo.out" }, 0.32)
+    .to("[data-reveal='sub']", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.6")
     .to("[data-reveal='cta']", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.45")
-    .to("[data-reveal='visual']", { autoAlpha: 1, y: 0, scale: 1, duration: 1.2, ease: "expo.out" }, 0.5)
-    .to("[data-reveal='stat']", { autoAlpha: 1, y: 0, duration: 0.7 }, "-=0.7");
-
-  // Hero stat-bar counts up as it enters, riding the same timeline
-  tl.add(() => animateStatBarCounters(".stat-bar--hero"), "-=0.6");
+    .to("[data-reveal='visual']", { autoAlpha: 1, y: 0, scale: 1, duration: 1.3, ease: "expo.out" }, 0.55);
 }
 
 runHeroTimeline();
@@ -173,7 +162,7 @@ class AISphere {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    this.camera.position.set(0, 0, 6.2);
+    this.camera.position.set(0, 0, 6.9);
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -233,7 +222,7 @@ class AISphere {
   buildRings() {
     this.rings = [];
     // A single tilted blue orbit ring with a few riding satellite dots — matches the reference
-    const ringDefs = [{ radius: 2.5, color: 0x4c97d6, tilt: [1.3, 0.15, 0], speed: 0.05, satCount: 3 }];
+    const ringDefs = [{ radius: 2.1, color: 0x4c97d6, tilt: [1.3, 0.15, 0], speed: 0.05, satCount: 3 }];
 
     ringDefs.forEach((def) => {
       const curve = new THREE.EllipseCurve(0, 0, def.radius, def.radius * 0.98, 0, Math.PI * 2);
@@ -267,7 +256,7 @@ class AISphere {
     const positions = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      const r = 2.6 + Math.random() * 1.4;
+      const r = 1.75 + Math.random() * 0.55;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
