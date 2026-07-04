@@ -89,7 +89,7 @@ if (!prefersReducedMotion && gsap) {
       const rect = btn.getBoundingClientRect();
       const x = (e.clientX - rect.left - rect.width / 2) * strength;
       const y = (e.clientY - rect.top - rect.height / 2) * strength;
-      gsap.to(btn, { x, y, duration: 0.4, ease: "power3.out" });
+      gsap.to(btn, { x, y, duration: 0.4, ease: "expo.out" });
     });
 
     btn.addEventListener("mouseleave", () => {
@@ -124,7 +124,7 @@ function runHeroTimeline() {
   );
   gsap.set("[data-reveal='visual']", { y: 0, scale: 0.94 });
 
-  const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+  const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
   tl.to("[data-reveal='badge']", { autoAlpha: 1, y: 0, duration: 0.7 }, 0.15)
     .to("[data-reveal='headline']", { autoAlpha: 1, y: 0, duration: 0.5 }, 0.32)
@@ -136,207 +136,19 @@ function runHeroTimeline() {
 
 runHeroTimeline();
 
-class AISphere {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.stage = canvas.parentElement;
-    this.mouse = { x: 0, y: 0 };
-    this.targetRotation = { x: 0, y: 0 };
-    this.clock = new THREE.Clock();
-
-    this.initScene();
-    this.buildSphere();
-    this.buildRings();
-    this.buildParticles();
-    this.bindEvents();
-    this.resize();
-
-    if (!prefersReducedMotion) {
-      this.tick();
-    } else {
-      this.renderer.render(this.scene, this.camera);
-    }
-  }
-
-  initScene() {
-    this.scene = new THREE.Scene();
-
-    this.camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    this.camera.position.set(0, 0, 6.9);
-
-    this.renderer = new THREE.WebGLRenderer({
-      canvas: this.canvas,
-      alpha: true,
-      antialias: true,
-      powerPreference: "high-performance",
-    });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    this.group = new THREE.Group();
-    this.scene.add(this.group);
-  }
-
-  buildSphere() {
-    // Lat/long wireframe globe — the clean "grid globe" look from the reference
-    const geo = new THREE.SphereGeometry(1.7, 28, 20);
-    const mat = new THREE.MeshBasicMaterial({
-      color: 0x4c97d6,
-      wireframe: true,
-      transparent: true,
-      opacity: 0.3,
-    });
-    this.core = new THREE.Mesh(geo, mat);
-    this.group.add(this.core);
-
-    // Soft blue glow behind the globe, billboard sprite using a radial-gradient canvas texture
-    this.glow = new THREE.Sprite(
-      new THREE.SpriteMaterial({
-        map: this.makeGlowTexture(),
-        color: 0x1c75bc,
-        transparent: true,
-        opacity: 0.4,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-      })
-    );
-    this.glow.scale.set(3.0, 3.0, 1);
-    this.group.add(this.glow);
-  }
-
-  makeGlowTexture() {
-    const size = 256;
-    const c = document.createElement("canvas");
-    c.width = c.height = size;
-    const ctx = c.getContext("2d");
-    const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-    grad.addColorStop(0, "rgba(255,255,255,0.9)");
-    grad.addColorStop(0.4, "rgba(255,255,255,0.25)");
-    grad.addColorStop(1, "rgba(255,255,255,0)");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, size, size);
-    const tex = new THREE.CanvasTexture(c);
-    tex.needsUpdate = true;
-    return tex;
-  }
-
-  buildRings() {
-    this.rings = [];
-    // A single tilted blue orbit ring with a few riding satellite dots — matches the reference
-    const ringDefs = [{ radius: 2.1, color: 0x4c97d6, tilt: [1.3, 0.15, 0], speed: 0.05, satCount: 3 }];
-
-    ringDefs.forEach((def) => {
-      const curve = new THREE.EllipseCurve(0, 0, def.radius, def.radius * 0.98, 0, Math.PI * 2);
-      const points = curve.getPoints(96).map((p) => new THREE.Vector3(p.x, p.y, 0));
-      const geo = new THREE.BufferGeometry().setFromPoints(points);
-      const mat = new THREE.LineBasicMaterial({ color: def.color, transparent: true, opacity: 0.45 });
-      const ring = new THREE.LineLoop(geo, mat);
-      ring.rotation.set(...def.tilt);
-      ring.userData.speed = def.speed;
-      ring.userData.satellites = [];
-      this.group.add(ring);
-      this.rings.push(ring);
-
-      for (let i = 0; i < def.satCount; i++) {
-        const satGeo = new THREE.SphereGeometry(0.036, 8, 8);
-        const satMat = new THREE.MeshBasicMaterial({ color: 0x4c97d6 });
-        const sat = new THREE.Mesh(satGeo, satMat);
-        ring.add(sat);
-        ring.userData.satellites.push({
-          mesh: sat,
-          radius: def.radius,
-          offset: (Math.PI * 2 * i) / def.satCount,
-        });
-      }
-    });
-  }
-
-  buildParticles() {
-    // Sparse white star-dust — subtle depth cue, matches the reference's faint background specks
-    const count = prefersReducedMotion ? 0 : 180;
-    const positions = new Float32Array(count * 3);
-
-    for (let i = 0; i < count; i++) {
-      const r = 1.75 + Math.random() * 0.55;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i * 3 + 2] = r * Math.cos(phi);
-    }
-
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-
-    const mat = new THREE.PointsMaterial({
-      size: 0.018,
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.5,
-      depthWrite: false,
-    });
-
-    this.particles = new THREE.Points(geo, mat);
-    this.group.add(this.particles);
-  }
-
-  bindEvents() {
-    window.addEventListener("resize", () => this.resize());
-
-    this.stage.addEventListener("pointermove", (e) => {
-      const rect = this.stage.getBoundingClientRect();
-      this.mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      this.mouse.y = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-      this.targetRotation.y = this.mouse.x * 0.35;
-      this.targetRotation.x = this.mouse.y * -0.25;
-    });
-
-    this.stage.addEventListener("pointerleave", () => {
-      this.targetRotation.x = 0;
-      this.targetRotation.y = 0;
-    });
-  }
-
-  resize() {
-    const rect = this.stage.getBoundingClientRect();
-    const size = Math.max(rect.width, 1);
-    this.renderer.setSize(size, size, false);
-    this.camera.aspect = 1;
-    this.camera.updateProjectionMatrix();
-  }
-
-  tick() {
-    const elapsed = this.clock.getElapsedTime();
-
-    this.core.rotation.y = elapsed * 0.08;
-    this.core.rotation.x = elapsed * 0.04;
-
-    this.rings.forEach((ring) => {
-      ring.rotation.z += ring.userData.speed * 0.016;
-      ring.userData.satellites.forEach((sat) => {
-        const t = elapsed * 0.4 + sat.offset;
-        sat.mesh.position.set(Math.cos(t) * sat.radius, Math.sin(t) * sat.radius, 0);
-      });
-    });
-
-    if (this.particles) this.particles.rotation.y = elapsed * 0.025;
-
-    // Smooth parallax toward pointer
-    this.group.rotation.y += (this.targetRotation.y - this.group.rotation.y) * 0.05;
-    this.group.rotation.x += (this.targetRotation.x - this.group.rotation.x) * 0.05;
-
-    this.renderer.render(this.scene, this.camera);
-    requestAnimationFrame(() => this.tick());
-  }
-}
+// Hero visual is now pure CSS/SVG (build-window mockup) — no WebGL/Three.js needed.
 
 /* -------------------------------------------------------------------- */
-/* 7. SERVICES — immersive modules                                      */
+/* 6. SERVICES — immersive modules                                      */
 /* -------------------------------------------------------------------- */
 
-// Fill each module's outcome ribbon from its data-outcome attribute
-document.querySelectorAll(".module[data-outcome]").forEach((module) => {
-  const outcome = module.querySelector(".module__outcome");
-  if (outcome) outcome.textContent = module.dataset.outcome;
+// Click-to-expand detail panel per module
+document.querySelectorAll(".module__head").forEach((head) => {
+  head.addEventListener("click", () => {
+    const module = head.closest(".module");
+    const isOpen = module.classList.toggle("is-open");
+    head.setAttribute("aria-expanded", String(isOpen));
+  });
 });
 
 // Cursor-tracked spotlight glow per module (desktop pointer only)
@@ -350,66 +162,63 @@ if (window.matchMedia("(pointer: fine)").matches) {
   });
 }
 
-// Scroll-triggered reveals for headings, modules and the stat bar
+// Scroll-triggered reveals for headings, modules and any [data-sr='stats'] band in view
 if (gsap && window.ScrollTrigger && !prefersReducedMotion) {
   gsap.utils.toArray("[data-sr='up']").forEach((el) => {
     gsap.fromTo(
       el,
       { autoAlpha: 0, y: 28 },
       {
-        autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out",
+        autoAlpha: 1, y: 0, duration: 0.8, ease: "expo.out",
         scrollTrigger: { trigger: el, start: "top 85%" },
       }
     );
   });
 
-  gsap.fromTo(
-    "[data-sr='module']",
-    { autoAlpha: 0, y: 36 },
-    {
-      autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.09,
-      scrollTrigger: { trigger: ".services__grid", start: "top 82%" },
-    }
-  );
+  gsap.utils.toArray(".services__grid, .window-stack").forEach((grid) => {
+    gsap.fromTo(
+      grid.children,
+      { autoAlpha: 0, y: 36 },
+      {
+        autoAlpha: 1, y: 0, duration: 0.7, ease: "expo.out", stagger: 0.09,
+        scrollTrigger: { trigger: grid, start: "top 82%" },
+      }
+    );
+  });
 
-  const statBar = document.querySelector("[data-sr='stats']");
-  if (statBar) {
+  document.querySelectorAll(".stat-bar").forEach((statBar) => {
     gsap.fromTo(
       statBar,
       { autoAlpha: 0, y: 24 },
       {
-        autoAlpha: 1, y: 0, duration: 0.8, ease: "power3.out",
+        autoAlpha: 1, y: 0, duration: 0.8, ease: "expo.out",
         scrollTrigger: { trigger: statBar, start: "top 88%" },
       }
     );
-
     window.ScrollTrigger.create({
       trigger: statBar,
       start: "top 88%",
       once: true,
-      onEnter: () => animateStatBarCounters("[data-sr='stats']"),
+      onEnter: () => animateStatBarCounters(statBar),
     });
-  }
+  });
 } else {
-  document.querySelectorAll("[data-sr]").forEach((el) => (el.style.opacity = 1));
-  animateStatBarCounters("[data-sr='stats']");
+  document.querySelectorAll("[data-sr], .stat-bar").forEach((el) => (el.style.opacity = 1));
+  document.querySelectorAll(".stat-bar").forEach((statBar) => animateStatBarCounters(statBar));
 }
 
-function animateStatBarCounters(scopeSelector) {
-  const scope = scopeSelector ? document.querySelector(scopeSelector) : document;
-  if (!scope) return;
+function animateStatBarCounters(scope) {
   scope.querySelectorAll(".stat-bar__num[data-count]").forEach((el) => {
-    if (el.dataset.static) return; // "24/7" stays static text
+    if (el.dataset.static) return; // e.g. "24/7" stays static text
     const target = parseFloat(el.dataset.count);
     const decimals = parseInt(el.dataset.decimals || "0", 10);
     const suffix = el.dataset.suffix || "";
-    const counter = { value: 0 };
 
     if (!gsap || prefersReducedMotion) {
       el.textContent = `${target.toFixed(decimals)}${suffix}`;
       return;
     }
-
+    const counter = { value: 0 };
     gsap.to(counter, {
       value: target,
       duration: 1.5,
@@ -420,15 +229,107 @@ function animateStatBarCounters(scopeSelector) {
 }
 
 /* -------------------------------------------------------------------- */
-/* 8. THREE.JS — AI ORBITAL SPHERE (hero centerpiece)                   */
+/* 6.5 SOLUTIONS — window-chrome bento                                  */
 /* -------------------------------------------------------------------- */
-const sphereCanvas = document.getElementById("sphereCanvas");
-if (sphereCanvas && window.WebGLRenderingContext) {
-  try {
-    new AISphere(sphereCanvas);
-  } catch (err) {
-    // Graceful degrade: hide canvas, keep the static mark + glow via CSS if WebGL fails
-    console.warn("AISphere failed to initialize:", err);
-    sphereCanvas.style.display = "none";
+
+document.querySelectorAll(".app-window[data-tilt]").forEach((win) => {
+  win.style.setProperty("--tilt", `${win.dataset.tilt}deg`);
+});
+
+function animateMiniStats(scope) {
+  scope.querySelectorAll(".mini-stat__num[data-count]").forEach((el) => {
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || "0", 10);
+    const suffix = el.dataset.suffix || "";
+    if (!gsap || prefersReducedMotion) {
+      el.textContent = `${target.toFixed(decimals)}${suffix}`;
+      return;
+    }
+    const counter = { value: 0 };
+    gsap.to(counter, {
+      value: target,
+      duration: 1.3,
+      ease: "power2.out",
+      onUpdate: () => (el.textContent = `${counter.value.toFixed(decimals)}${suffix}`),
+    });
+  });
+}
+
+function animateMiniChart(scope) {
+  const bars = scope.querySelectorAll(".mini-chart__bars rect");
+  const line = scope.querySelector(".mini-chart__line");
+  if (bars.length && gsap && !prefersReducedMotion) {
+    gsap.set(bars, { scaleY: 0 });
+    gsap.to(bars, { scaleY: 1, duration: 0.7, stagger: 0.05, ease: "expo.out", delay: 0.15 });
   }
+  if (line) {
+    const length = line.getTotalLength();
+    line.style.strokeDasharray = length;
+    line.style.strokeDashoffset = length;
+    if (gsap && !prefersReducedMotion) {
+      gsap.to(line, { strokeDashoffset: 0, duration: 1.1, ease: "power2.inOut", delay: 0.25 });
+    } else {
+      line.style.strokeDashoffset = 0;
+    }
+  }
+}
+
+const windowStack = document.querySelector(".window-stack");
+if (windowStack) {
+  if (gsap && window.ScrollTrigger) {
+    window.ScrollTrigger.create({
+      trigger: windowStack,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        animateMiniStats(windowStack);
+        animateMiniChart(windowStack);
+      },
+    });
+  } else {
+    animateMiniStats(windowStack);
+    animateMiniChart(windowStack);
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/* 7. WHY CHOOSE US — connected core visual reveal                      */
+/* -------------------------------------------------------------------- */
+const whyVisual = document.querySelector(".why__visual");
+if (whyVisual) {
+  if (window.ScrollTrigger) {
+    window.ScrollTrigger.create({
+      trigger: whyVisual,
+      start: "top 80%",
+      once: true,
+      onEnter: () => whyVisual.classList.add("is-visible"),
+    });
+  } else {
+    whyVisual.classList.add("is-visible");
+  }
+}
+
+/* -------------------------------------------------------------------- */
+/* 8. CONTACT FORM — mailto handoff (no backend on a static site)       */
+/* -------------------------------------------------------------------- */
+const contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(contactForm);
+    const name = (data.get("name") || "").toString().trim();
+    const email = (data.get("email") || "").toString().trim();
+    const project = (data.get("project") || "").toString();
+    const message = (data.get("message") || "").toString().trim();
+
+    if (!name || !email || !message) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    const subject = `New project inquiry — ${project}`;
+    const body = `Name: ${name}\nEmail: ${email}\nProject Type: ${project}\n\n${message}`;
+    const mailto = `mailto:sales@aadarshtechnologies.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailto;
+  });
 }
