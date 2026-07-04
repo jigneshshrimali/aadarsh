@@ -142,12 +142,29 @@ runHeroTimeline();
 /* 6. SERVICES — immersive modules                                      */
 /* -------------------------------------------------------------------- */
 
-// Click-to-expand detail panel per module
-document.querySelectorAll(".module__head").forEach((head) => {
-  head.addEventListener("click", () => {
-    const module = head.closest(".module");
-    const isOpen = module.classList.toggle("is-open");
-    head.setAttribute("aria-expanded", String(isOpen));
+// Click a card to open its detail modal (native <dialog> — Escape and
+// backdrop-click already work for free; we just wire the open trigger
+// and the explicit close button/link)
+document.querySelectorAll("[data-open-modal]").forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const modal = document.getElementById(trigger.dataset.openModal);
+    if (modal) modal.showModal();
+  });
+});
+document.querySelectorAll("[data-close-modal]").forEach((closer) => {
+  closer.addEventListener("click", (e) => {
+    const modal = closer.closest("dialog");
+    if (modal) {
+      e.preventDefault();
+      modal.close();
+      if (closer.tagName === "A") window.location.hash = closer.getAttribute("href");
+    }
+  });
+});
+// Click on the backdrop (outside the modal card) also closes it
+document.querySelectorAll(".module-modal").forEach((modal) => {
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.close();
   });
 });
 
